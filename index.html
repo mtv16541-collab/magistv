@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MagisTV - Ferchodev</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{
+      font-family:'Inter',sans-serif;
+      background:linear-gradient(to bottom,#000 20%,#141414 100%);
+      color:#fff;
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+    header{
+      background:rgba(0,0,0,0.85);
+      padding:20px 40px;
+      display:flex;justify-content:space-between;align-items:center;
+      position:sticky;top:0;z-index:10;
+      box-shadow:0 2px 10px rgba(0,0,0,0.7);
+    }
+    header h1{
+      font-family:'Bebas Neue',cursive;
+      font-size:2rem;letter-spacing:2px;color:#e50914;
+    }
+    header span{
+      font-size:0.9rem;color:#bbb;margin-left:8px;
+      font-style:italic;
+    }
+    .hero{
+      position:relative;
+      height:65vh;
+      background:url('https://static.vecteezy.com/system/resources/previews/008/146/159/non_2x/cinema-movie-horizontal-banner-corn-cartoon-style-vector.jpg') center/cover no-repeat;
+      display:flex;flex-direction:column;justify-content:center;align-items:center;
+      text-align:center;padding:20px;
+    }
+    .hero::after{
+      content:"";position:absolute;inset:0;
+      background:linear-gradient(to top,rgba(0,0,0,0.8),rgba(0,0,0,0.3));
+    }
+    .hero h2{
+      position:relative;z-index:1;
+      font-family:'Bebas Neue',cursive;
+      font-size:3rem;color:#fff;letter-spacing:3px;margin-bottom:10px;
+      text-shadow:0 4px 10px rgba(0,0,0,0.7);
+    }
+    .hero p{
+      position:relative;z-index:1;
+      font-size:1.2rem;color:#ddd;max-width:600px;margin-bottom:20px;
+    }
+    .btn-red{
+      position:relative;z-index:1;
+      display:inline-block;padding:15px 35px;
+      background:#e50914;color:#fff;font-weight:600;
+      border-radius:8px;text-decoration:none;font-size:1.1rem;
+      transition:.3s;
+      box-shadow:0 4px 15px rgba(229,9,20,0.6);
+    }
+    .btn-red:hover{background:#f6121d;}
+    /* Caja de credenciales */
+    .credenciales{
+      margin:40px auto;
+      max-width:450px;
+      background:rgba(20,20,20,0.95);
+      padding:25px;
+      border-radius:12px;
+      box-shadow:0 8px 25px rgba(0,0,0,0.7);
+      border:1px solid rgba(255,255,255,0.1);
+    }
+    .credenciales h3{
+      font-family:'Bebas Neue',cursive;
+      font-size:1.8rem;color:#e50914;margin-bottom:15px;text-align:center;
+    }
+    .credenciales p{
+      font-size:1rem;margin:10px 0;color:#eee;
+      background:#1f1f1f;padding:12px;border-radius:6px;
+      border-left:4px solid #e50914;
+    }
+    /* WhatsApp flotante */
+    .whatsapp-float{
+      position:fixed;bottom:20px;right:20px;background:#25D366;
+      border-radius:50%;padding:16px;
+      display:flex;justify-content:center;align-items:center;
+      box-shadow:0 6px 20px rgba(0,0,0,0.4);transition:.3s;z-index:10;
+    }
+    .whatsapp-float img{width:32px;}
+    .whatsapp-float:hover{transform:scale(1.1);background:#128C7E;}
+
+    /* Texto sobre el botón de WhatsApp */
+    .whatsapp-text{
+      position:fixed;
+      bottom:95px; /* lo coloca encima del botón */
+      right:20px;
+      background:rgba(0,0,0,0.8);
+      padding:12px 18px;
+      border-radius:10px;
+      max-width:220px;
+      color:#fff;
+      font-size:0.9rem;
+      text-align:center;
+      box-shadow:0 4px 12px rgba(0,0,0,0.6);
+      animation: bounce 2s infinite;
+      z-index:11;
+    }
+    .whatsapp-text strong{color:#00ff99;}
+    .whatsapp-text .finger{
+      font-size:1.5rem;
+      margin-top:5px;
+      animation: pulse 1s infinite;
+    }
+    @keyframes bounce {
+      0%,100%{transform:translateY(0);}
+      50%{transform:translateY(-5px);}
+    }
+    @keyframes pulse {
+      0%,100%{transform:scale(1);}
+      50%{transform:scale(1.2);}
+    }
+
+    /* Popup */
+    .popup-overlay{
+      position:fixed;top:0;left:0;width:100%;height:100%;
+      background:rgba(0,0,0,0.7);
+      display:flex;justify-content:center;align-items:center;
+      opacity:0;visibility:hidden;transition:.3s;z-index:20;
+    }
+    .popup-overlay.show{opacity:1;visibility:visible;}
+    .popup-content{
+      background:#141414;border-radius:12px;padding:30px;
+      max-width:420px;width:90%;text-align:center;position:relative;
+      box-shadow:0 10px 30px rgba(0,0,0,0.6);transform:scale(0.8);
+      transition:transform .3s ease;
+    }
+    .popup-overlay.show .popup-content{transform:scale(1);}
+    .popup-content h3{
+      font-family:'Bebas Neue',cursive;
+      font-size:2rem;color:#e50914;margin-bottom:10px;
+    }
+    .popup-content p{font-size:1rem;color:#ccc;margin-bottom:20px;}
+    .popup-content .whatsapp-button{
+      display:inline-block;padding:12px 25px;background:#25D366;
+      color:#fff;border-radius:8px;font-weight:600;text-decoration:none;
+      transition:.3s;
+    }
+    .popup-content .whatsapp-button:hover{background:#128C7E;}
+    .close-btn{
+      position:absolute;top:12px;right:15px;font-size:1.5rem;color:#aaa;cursor:pointer;
+    }
+    .close-btn:hover{color:#e50914;}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>MagisTV <span>by Ferchodev</span></h1>
+    <a href="https://drive.google.com/file/d/1DUFzNZgiHdY_0MHDAdWHCzbQwKeoA__2/view?usp=sharing" class="btn-red">Descargar MAGIS TV</a>
+  </header>
+
+  <section class="hero">
+    <h2>Tu Cine en Casa</h2>
+    <p>Disfruta lo mejor de las películas y series en cualquier dispositivo con MagisTV.</p>
+    <a href="https://wa.me/573213752568?text=Hola%20FerchoDev,%20quiero%20MagisTV" class="btn-red">Suscribirme en YouTube</a>
+  </section>
+
+  <!-- Caja de credenciales -->
+  <div class="credenciales">
+    <h3>🔑 Credenciales MagisTV Gratuitas</h3>
+    <p><strong>Usuario:</strong> demo@ferchodep.com</p>
+    <p><strong>Contraseña:</strong> magis123</p>
+    <p>Recuerda que esta cuenta es publica y puede saturarse en cualquier momento,  mientras estés en ella conectado todas las personas podrán ver tu historial de reproducción.  </p>
+  </div>
+
+  <!-- Texto arriba del botón de WhatsApp -->
+  <div class="whatsapp-text">
+    <p>💲 Personaliza tu cuenta por <strong>5 dólares</strong><br>
+    </p>
+    <div class="finger">👇</div>
+  </div>
+
+  <!-- WhatsApp -->
+  <a href="https://wa.me/573213752568?text=Hola%20FerchoDev,%20quiero%20comprar%20mi%20cuenta%20MagisTV%20por%205%20dólares" class="whatsapp-float" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+  </a>
+
+  <!-- Popup -->
+  <div id="popup" class="popup-overlay" onclick="closePopup(event)">
+    <div class="popup-content">
+      <span class="close-btn" onclick="hidePopup()">&times;</span>
+      <h3>🎟 Personaliza tu cuenta</h3>
+      <p>Haz que tu experiencia en MagisTV sea única. Solamente por : <strong><h1>$5</h1></strong> personalizamos tu cuenta con tu e-mail</p><p>¡Solo tú podrás acceder a ella!</p>
+      <a href="https://wa.me/573213752568?text=Hola%20FerchoDev,%20quiero%20personalizar%20mi%20cuenta%20MagisTV" class="whatsapp-button" target="_blank">✅ Sí, quiero personalizar mi cuenta</a>
+    </div>
+  </div>
+
+  <script>
+    function showPopup(){document.getElementById("popup").classList.add("show");}
+    function hidePopup(){document.getElementById("popup").classList.remove("show");}
+    function closePopup(e){if(e.target.id==="popup"){hidePopup();}}
+    window.onload=function(){setTimeout(showPopup,1500);}
+  </script>
+</body>
+</html>

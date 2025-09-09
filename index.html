@@ -119,7 +119,7 @@
       50%{transform:scale(1.2);}
     }
 
-    /* Popup general */
+    /* Popups */
     .popup-overlay{
       position:fixed;top:0;left:0;width:100%;height:100%;
       background:rgba(0,0,0,0.7);
@@ -140,8 +140,9 @@
     }
     .popup-content p{font-size:1rem;color:#ccc;margin-bottom:20px;}
     .popup-content .whatsapp-button,
-    .popup-content .subscribe-button{
-      display:inline-block;padding:12px 25px;
+    .popup-content .subscribe-button,
+    .popup-content .subscribed-button{
+      display:inline-block;padding:12px 25px;margin:5px;
       border-radius:8px;font-weight:600;text-decoration:none;
       transition:.3s;
     }
@@ -149,6 +150,8 @@
     .popup-content .whatsapp-button:hover{background:#128C7E;}
     .popup-content .subscribe-button{background:#e50914;color:#fff;}
     .popup-content .subscribe-button:hover{background:#f6121d;}
+    .popup-content .subscribed-button{background:#444;color:#fff;}
+    .popup-content .subscribed-button:hover{background:#666;}
     .close-btn{
       position:absolute;top:12px;right:15px;font-size:1.5rem;color:#aaa;cursor:pointer;
     }
@@ -172,7 +175,7 @@
     <h3>🔑 Credenciales MagisTV Gratuitas</h3>
     <p><strong>Usuario:</strong> mtvm96382@gmail.com</p>
     <p><strong>Contraseña:</strong> sep123456789</p>
-    <p>Recuerda que esta cuenta es publica y puede saturarse en cualquier momento,  mientras estés en ella conectado todas las personas podrán ver tu historial de reproducción.  </p>
+    <p>Recuerda que esta cuenta es publica y puede saturarse en cualquier momento, mientras estés en ella conectado todas las personas podrán ver tu historial de reproducción.</p>
   </div>
 
   <!-- Texto arriba del botón de WhatsApp -->
@@ -186,7 +189,7 @@
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
   </a>
 
-  <!-- Popup Personalización -->
+  <!-- Popup Personalizar cuenta -->
   <div id="popup" class="popup-overlay" onclick="closePopup(event)">
     <div class="popup-content">
       <span class="close-btn" onclick="hidePopup()">&times;</span>
@@ -200,9 +203,10 @@
   <div id="subscribePopup" class="popup-overlay" onclick="closeSubscribePopup(event)">
     <div class="popup-content">
       <span class="close-btn" onclick="hideSubscribePopup()">&times;</span>
-      <h3>📺 Suscríbete al canal</h3>
-      <p>Por favor suscríbete al canal.<br> No olvides suscribirte al canal, me apoyas y me ayudas mucho 🙏</p>
-      <button class="subscribe-button" onclick="alreadySubscribed()">✅ Ya estoy suscrito</button>
+      <h3>📺 ¡No olvides suscribirte!</h3>
+      <p>Por favor suscríbete al canal, me apoyas y me ayudas mucho 🙌</p>
+      <a href="https://www.youtube.com/@ferchodev" target="_blank" class="subscribe-button">🔔 Suscribirme</a>
+      <button class="subscribed-button" onclick="alreadySubscribed()">✅ Ya estoy suscrito</button>
     </div>
   </div>
 
@@ -213,7 +217,7 @@
     function closePopup(e){if(e.target.id==="popup"){hidePopup();}}
     window.onload=function(){setTimeout(showPopup,1500);}
 
-    // Popup suscripción con localStorage
+    // Popup suscripción
     function showSubscribePopup(){
       if(!localStorage.getItem("subscribed")){
         document.getElementById("subscribePopup").classList.add("show");
@@ -229,11 +233,7 @@
       localStorage.setItem("subscribed","true");
       hideSubscribePopup();
     }
-    // Mostrar cada 10 segundos
     setInterval(showSubscribePopup,10000);
   </script>
 </body>
 </html>
-
-
-
